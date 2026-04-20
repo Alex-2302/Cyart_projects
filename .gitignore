@@ -1,6 +1,6 @@
 # Ignore HackMD auto-generated files
 Metasploit Exploit Technique Summary - HackMD_files/
-*.html
+#*.html
 
 # Ignore temporary files
 *.log
