@@ -1,0 +1,41 @@
+{
+ "client_id": "C.a6d3269911f8f9c8",
+ "session_id": "F.D7MIPMF9IT76E",
+ "request": {
+  "creator": "admin",
+  "client_id": "C.a6d3269911f8f9c8",
+  "artifacts": [
+   "Windows.System.Pslist"
+  ],
+  "specs": [
+   {
+    "artifact": "Windows.System.Pslist",
+    "parameters": {}
+   }
+  ],
+  "max_upload_bytes": 1073741824
+ },
+ "create_time": 1777151193799027,
+ "start_time": 1777151196923519,
+ "active_time": 1777151219370985,
+ "total_collected_rows": 175,
+ "total_logs": 20,
+ "total_requests": 1,
+ "execution_duration": 22447466000,
+ "state": 2,
+ "artifacts_with_results": [
+  "Windows.System.Pslist"
+ ],
+ "query_stats": [
+  {
+   "duration": 22447466000,
+   "last_active": 1777151219370985,
+   "first_active": 1777151196923519,
+   "names_with_response": [
+    "Windows.System.Pslist"
+   ],
+   "log_rows": 20,
+   "result_rows": 175
+  }
+ ]
+}

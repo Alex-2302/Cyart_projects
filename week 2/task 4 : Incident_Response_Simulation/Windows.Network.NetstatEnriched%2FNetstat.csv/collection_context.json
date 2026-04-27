@@ -1,0 +1,41 @@
+{
+ "client_id": "C.a6d3269911f8f9c8",
+ "session_id": "F.D7MIQ6O6M7NL0",
+ "request": {
+  "creator": "admin",
+  "client_id": "C.a6d3269911f8f9c8",
+  "artifacts": [
+   "Windows.Network.NetstatEnriched"
+  ],
+  "specs": [
+   {
+    "artifact": "Windows.Network.NetstatEnriched",
+    "parameters": {}
+   }
+  ],
+  "max_upload_bytes": 1073741824
+ },
+ "create_time": 1777151259644599,
+ "start_time": 1777151251100027,
+ "active_time": 1777151276559080,
+ "total_collected_rows": 55,
+ "total_logs": 20,
+ "total_requests": 1,
+ "execution_duration": 25459053000,
+ "state": 2,
+ "artifacts_with_results": [
+  "Windows.Network.NetstatEnriched/Netstat"
+ ],
+ "query_stats": [
+  {
+   "duration": 25459053000,
+   "last_active": 1777151276559080,
+   "first_active": 1777151251100027,
+   "names_with_response": [
+    "Windows.Network.NetstatEnriched/Netstat"
+   ],
+   "log_rows": 20,
+   "result_rows": 55
+  }
+ ]
+}

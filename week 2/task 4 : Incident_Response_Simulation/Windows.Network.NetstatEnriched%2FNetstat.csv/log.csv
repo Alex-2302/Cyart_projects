@@ -1,0 +1,40 @@
+client_time,level,message
+1777151251,INFO,"Starting query execution for Windows.Network.NetstatEnriched/Netstat.
+"
+1777151251,DEFAULT,"token: OpenProcess for  4 (System) : Access is denied.
+"
+1777151251,DEFAULT,"token: OpenProcess for  112 (Registry) : Access is denied.
+"
+1777151251,DEFAULT,"token: OpenProcess for  464 (smss.exe) : Access is denied.
+"
+1777151251,DEFAULT,"token: OpenProcess for  620 (csrss.exe) : Access is denied.
+"
+1777151251,DEFAULT,"token: OpenProcess for  692 (wininit.exe) : Access is denied.
+"
+1777151251,DEFAULT,"token: OpenProcess for  700 (csrss.exe) : Access is denied.
+"
+1777151251,DEFAULT,"token: OpenProcess for  836 (services.exe) : Access is denied.
+"
+1777151251,DEFAULT,"token: OpenProcess for  856 (lsass.exe) : Access is denied.
+"
+1777151252,DEFAULT,"token: OpenProcess for  2172 (Memory Compression) : Access is denied.
+"
+1777151253,DEFAULT,"token: OpenProcess for  3108 (MpDefenderCoreService.exe) : Access is denied.
+"
+1777151253,DEFAULT,"token: OpenProcess for  3176 (Sysmon.exe) : Access is denied.
+"
+1777151253,DEFAULT,"token: OpenProcess for  3192 (MsMpEng.exe) : Access is denied.
+"
+1777151254,DEFAULT,"Hash of C:\Program Files\Elastic\Agent\data\elastic-agent-9.3.3+build202604082258-d70142\components\elastic-otel-collector.exe aborted due to exceeding size
+"
+1777151267,DEFAULT,"token: OpenProcess for  5060 (SecurityHealthService.exe) : Access is denied.
+"
+1777151269,DEFAULT,"token: OpenProcess for  1304 (svchost.exe) : Access is denied.
+"
+1777151269,DEFAULT,"token: OpenProcess for  5160 (NisSrv.exe) : Access is denied.
+"
+1777151276,DEFAULT,Windows.Network.NetstatEnriched/Netstat: Time 3: Windows.Network.NetstatEnriched/Netstat: Sending response part 0 54 kB (55 rows).
+1777151276,INFO,"Collection Windows.Network.NetstatEnriched/Netstat is done after 24.4928329s
+"
+1777151276,DEBUG,"Query Stats: {""RowsScanned"":68471,""PluginsCalled"":13,""FunctionsCalled"":116,""ProtocolSearch"":446,""ScopeCopy"":205308}
+"

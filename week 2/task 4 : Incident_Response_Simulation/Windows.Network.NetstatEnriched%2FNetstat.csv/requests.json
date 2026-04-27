@@ -1,0 +1,205 @@
+{
+ "items": [
+  {
+   "session_id": "F.D7MIQ6O6M7NL0",
+   "request_id": 1,
+   "FlowRequest": {
+    "VQLClientActions": [
+     {
+      "query_id": 1,
+      "total_queries": 1,
+      "precondition": "SELECT OS From info() where OS = 'windows'",
+      "env": [
+       {
+        "key": "IPRegex",
+        "value": "."
+       },
+       {
+        "key": "PortRegex",
+        "value": "."
+       },
+       {
+        "key": "Family",
+        "value": "ALL"
+       },
+       {
+        "key": "FamilyMap",
+        "value": "Choice,Regex\nALL,\".\"\nIPv4,\"^IPv4$\"\nIPv6,\"^IPv6$\"\n"
+       },
+       {
+        "key": "Type",
+        "value": "ALL"
+       },
+       {
+        "key": "TypeMap",
+        "value": "Choice,Regex\nALL,\".\"\nTCP,\"^TCP$\"\nUDP,\"^UDP$\"\n"
+       },
+       {
+        "key": "Status",
+        "value": "ALL"
+       },
+       {
+        "key": "StatusMap",
+        "value": "Choice,Regex\nALL,\".\"\nESTABLISHED,\"^ESTAB$\"\nLISTENING,\"^LISTEN$\"\nOTHER,\"CLOS|SENT|RCVD|LAST|WAIT|DELETE\"\n"
+       },
+       {
+        "key": "ProcessNameRegex",
+        "value": "^(malware\\.exe|.*)$"
+       },
+       {
+        "key": "ProcessPathRegex",
+        "value": "."
+       },
+       {
+        "key": "CommandLineRegex",
+        "value": "."
+       },
+       {
+        "key": "HashRegex",
+        "value": "."
+       },
+       {
+        "key": "UsernameRegex",
+        "value": "."
+       },
+       {
+        "key": "AuthenticodeSubjectRegex",
+        "value": "."
+       },
+       {
+        "key": "AuthenticodeIssuerRegex",
+        "value": "."
+       },
+       {
+        "key": "AuthenticodeVerified",
+        "value": "ALL"
+       },
+       {
+        "key": "AuthenticodeVerifiedMap",
+        "value": "Choice,Regex\nALL,\".\"\nTRUSTED,\"^trusted$\"\nUNSIGNED,\"^unsigned$\"\nNOT TRUSTED,\"unsigned|disallowed|untrusted|error\"\n"
+       },
+       {
+        "key": "DumpProcess"
+       },
+       {
+        "key": "KillProcess"
+       },
+       {
+        "key": "DISABLE_DANGEROUS_API_CALLS"
+       }
+      ],
+      "Query": [
+       {
+        "VQL": "LET DumpProcess \u003c= get(field='DumpProcess') = TRUE OR get(field='DumpProcess') =~ '^(Y|TRUE|YES|OK)$'"
+       },
+       {
+        "VQL": "LET KillProcess \u003c= get(field='KillProcess') = TRUE OR get(field='KillProcess') =~ '^(Y|TRUE|YES|OK)$'"
+       },
+       {
+        "VQL": "LET DISABLE_DANGEROUS_API_CALLS \u003c= get(field='DISABLE_DANGEROUS_API_CALLS') = TRUE OR get(field='DISABLE_DANGEROUS_API_CALLS') =~ '^(Y|TRUE|YES|OK)$'"
+       },
+       {
+        "VQL": "LET precondition_Windows_Network_NetstatEnriched_Netstat_0 = SELECT OS FROM info() WHERE OS = 'windows'"
+       },
+       {
+        "VQL": "LET VerifiedRegex \u003c= SELECT Regex FROM parse_csv(filename=AuthenticodeVerifiedMap, accessor=\"data\") WHERE Choice = AuthenticodeVerified LIMIT 1"
+       },
+       {
+        "VQL": "LET StatusRegex \u003c= SELECT Regex FROM parse_csv(filename=StatusMap, accessor=\"data\") WHERE Choice = Status LIMIT 1"
+       },
+       {
+        "VQL": "LET FamilyRegex \u003c= SELECT Regex FROM parse_csv(filename=FamilyMap, accessor=\"data\") WHERE Choice = Family LIMIT 1"
+       },
+       {
+        "VQL": "LET TypeRegex \u003c= SELECT Regex FROM parse_csv(filename=TypeMap, accessor=\"data\") WHERE Choice = Type LIMIT 1"
+       },
+       {
+        "VQL": "LET process \u003c= SELECT Pid AS PsId, Ppid, Name, CommandLine, Exe, Hash, Authenticode, Username FROM Artifact.Windows.System.Pslist(DISABLE_DANGEROUS_API_CALLS=DISABLE_DANGEROUS_API_CALLS) WHERE Name =~ ProcessNameRegex  AND Exe =~ ProcessPathRegex  AND CommandLine =~ CommandLineRegex"
+       },
+       {
+        "VQL": "LET results = SELECT Pid, { SELECT Ppid FROM process WHERE PsId = Pid } AS Ppid, { SELECT Name FROM process WHERE PsId = Pid } AS Name, { SELECT Exe FROM process WHERE PsId = Pid } AS Path, { SELECT CommandLine FROM process WHERE PsId = Pid } AS CommandLine, { SELECT Hash FROM process WHERE PsId = Pid } AS Hash, { SELECT Username FROM process WHERE PsId = Pid } AS Username, { SELECT Authenticode FROM process WHERE PsId = Pid } AS Authenticode, FamilyString AS Family, TypeString AS Type, Status, Laddr.IP AS Laddr, Laddr.Port AS Lport, Raddr.IP AS Raddr, Raddr.Port AS Rport, Timestamp FROM netstat() WHERE Name =~ ProcessNameRegex  AND Path =~ ProcessPathRegex  and CommandLine =~ CommandLineRegex  and Username =~ UsernameRegex  and (Hash.MD5 =~ HashRegex or Hash.SHA1 =~ HashRegex or Hash.SHA256 =~ HashRegex or NOT Hash)  and (Authenticode.IssuerName =~ AuthenticodeIssuerRegex or NOT Authenticode)  and (Authenticode.SubjectName =~ AuthenticodeSubjectRegex or NOT Authenticode)  and (Authenticode.Trusted =~ VerifiedRegex.Regex[0] or NOT Authenticode)  and Status =~ StatusRegex.Regex[0]  and Family =~ FamilyRegex.Regex[0]  and Type =~ TypeRegex.Regex[0]  and (format(format=\"%v\", args=Laddr) =~ IPRegex or format(format=\"%v\", args=Raddr) =~ IPRegex)  and (format(format=\"%v\", args=Lport) =~ PortRegex or format(format=\"%v\", args=Rport) =~ PortRegex)"
+       },
+       {
+        "VQL": "LET Regions(Pid) = SELECT dict(Offset=Address, Length=Size) AS Sparse FROM vad(pid=Pid) WHERE Protection =~ \"r\""
+       },
+       {
+        "VQL": "LET dump = SELECT *, upload(accessor=\"sparse\", file=pathspec(Path=serialize(item=Regions(Pid=Pid).Sparse), DelegateAccessor=\"process\", DelegatePath=format(format=\"/%d\", args=Pid)), name=pathspec(Path=format(format=\"%d.dd\", args=Pid))) AS ProcessMemory FROM results"
+       },
+       {
+        "VQL": "LET kill = SELECT *, pskill(pid=Pid) AS KillProcess FROM results"
+       },
+       {
+        "VQL": "LET dumpandkill = SELECT *, pskill(pid=Pid) AS KillProcess FROM dump"
+       },
+       {
+        "VQL": "LET Windows_Network_NetstatEnriched_Netstat_0_10 = SELECT * FROM switch(a={ SELECT *, if(condition=KillProcess = NULL, then='Success', else=KillProcess) AS KillProcess FROM if(condition=DumpProcess  AND KillProcess, then=dumpandkill) }, b={ SELECT * FROM if(condition=DumpProcess, then=dump) }, c={ SELECT *, if(condition=KillProcess = NULL, then='Success', else=KillProcess) AS KillProcess FROM if(condition=KillProcess, then=kill) }, catch=results)"
+       },
+       {
+        "Name": "$90f2ab4517ffc2115f14c2128308b9ce92f67bed56d90ff4875dc2241cc9def1ba350374daf53361649e6466490958cb",
+        "VQL": "SELECT * FROM if(then=Windows_Network_NetstatEnriched_Netstat_0_10, condition=precondition_Windows_Network_NetstatEnriched_Netstat_0, else={ SELECT * FROM scope() WHERE log(message='Query skipped due to precondition')  AND FALSE })"
+       }
+      ],
+      "max_row": 1000,
+      "artifacts": [
+       {
+        "name": "Windows.System.Pslist",
+        "parameters": [
+         {
+          "name": "ProcessRegex",
+          "default": ".",
+          "type": "regex"
+         },
+         {
+          "name": "PidRegex",
+          "default": ".",
+          "type": "regex"
+         },
+         {
+          "name": "ExePathRegex",
+          "default": ".",
+          "type": "regex"
+         },
+         {
+          "name": "CommandLineRegex",
+          "default": ".",
+          "type": "regex"
+         },
+         {
+          "name": "UsernameRegex",
+          "default": ".",
+          "type": "regex"
+         },
+         {
+          "name": "UntrustedAuthenticode",
+          "type": "bool"
+         },
+         {
+          "name": "UseTracker",
+          "type": "bool"
+         },
+         {
+          "name": "DISABLE_DANGEROUS_API_CALLS",
+          "type": "bool"
+         }
+        ],
+        "type": "client",
+        "sources": [
+         {
+          "precondition": "SELECT OS FROM info() WHERE OS = 'windows'",
+          "queries": [
+           "LET ProcList = SELECT * FROM if(condition=UseTracker, then={ SELECT CreateTime, Pid, Ppid, NULL AS TokenIsElevated, Username, Name, CommandLine, Exe, NULL AS Memory FROM process_tracker_pslist() }, else={ SELECT * FROM pslist() })",
+           "SELECT CreateTime, Pid, Ppid, TokenIsElevated, Name, CommandLine, Exe, token(pid=int(int=Pid)) AS TokenInfo, hash(path=Exe) AS Hash, authenticode(filename=Exe) AS Authenticode, Username, Memory.WorkingSetSize AS WorkingSetSize FROM ProcList WHERE Name =~ ProcessRegex  AND Pid =~ PidRegex  AND Exe =~ ExePathRegex  AND CommandLine =~ CommandLineRegex  AND Username =~ UsernameRegex  AND NOT if(condition=UntrustedAuthenticode, then=Authenticode.Trusted = 'trusted' OR NOT Exe, else=False)"
+          ]
+         }
+        ]
+       }
+      ]
+     }
+    ],
+    "log_batch_time": 2000,
+    "max_upload_bytes": 1073741824,
+    "compression": 1
+   }
+  }
+ ]
+}

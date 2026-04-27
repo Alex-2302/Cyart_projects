@@ -1,0 +1,76 @@
+{
+ "items": [
+  {
+   "session_id": "F.D7MIPMF9IT76E",
+   "request_id": 1,
+   "FlowRequest": {
+    "VQLClientActions": [
+     {
+      "query_id": 1,
+      "total_queries": 1,
+      "precondition": "SELECT OS From info() where OS = 'windows'",
+      "env": [
+       {
+        "key": "ProcessRegex",
+        "value": "."
+       },
+       {
+        "key": "PidRegex",
+        "value": "."
+       },
+       {
+        "key": "ExePathRegex",
+        "value": "."
+       },
+       {
+        "key": "CommandLineRegex",
+        "value": "."
+       },
+       {
+        "key": "UsernameRegex",
+        "value": "."
+       },
+       {
+        "key": "UntrustedAuthenticode"
+       },
+       {
+        "key": "UseTracker"
+       },
+       {
+        "key": "DISABLE_DANGEROUS_API_CALLS"
+       }
+      ],
+      "Query": [
+       {
+        "VQL": "LET UntrustedAuthenticode \u003c= get(field='UntrustedAuthenticode') = TRUE OR get(field='UntrustedAuthenticode') =~ '^(Y|TRUE|YES|OK)$'"
+       },
+       {
+        "VQL": "LET UseTracker \u003c= get(field='UseTracker') = TRUE OR get(field='UseTracker') =~ '^(Y|TRUE|YES|OK)$'"
+       },
+       {
+        "VQL": "LET DISABLE_DANGEROUS_API_CALLS \u003c= get(field='DISABLE_DANGEROUS_API_CALLS') = TRUE OR get(field='DISABLE_DANGEROUS_API_CALLS') =~ '^(Y|TRUE|YES|OK)$'"
+       },
+       {
+        "VQL": "LET precondition_Windows_System_Pslist_0 = SELECT OS FROM info() WHERE OS = 'windows'"
+       },
+       {
+        "VQL": "LET ProcList = SELECT * FROM if(condition=UseTracker, then={ SELECT CreateTime, Pid, Ppid, NULL AS TokenIsElevated, Username, Name, CommandLine, Exe, NULL AS Memory FROM process_tracker_pslist() }, else={ SELECT * FROM pslist() })"
+       },
+       {
+        "VQL": "LET Windows_System_Pslist_0_1 = SELECT CreateTime, Pid, Ppid, TokenIsElevated, Name, CommandLine, Exe, token(pid=int(int=Pid)) AS TokenInfo, hash(path=Exe) AS Hash, authenticode(filename=Exe) AS Authenticode, Username, Memory.WorkingSetSize AS WorkingSetSize FROM ProcList WHERE Name =~ ProcessRegex  AND Pid =~ PidRegex  AND Exe =~ ExePathRegex  AND CommandLine =~ CommandLineRegex  AND Username =~ UsernameRegex  AND NOT if(condition=UntrustedAuthenticode, then=Authenticode.Trusted = 'trusted' OR NOT Exe, else=False)"
+       },
+       {
+        "Name": "$9e046f5f284acabc11ec234cfa49e9a6f02ecf493833a4350d4fddf6a0513a7e",
+        "VQL": "SELECT * FROM if(then=Windows_System_Pslist_0_1, condition=precondition_Windows_System_Pslist_0, else={ SELECT * FROM scope() WHERE log(message='Query skipped due to precondition')  AND FALSE })"
+       }
+      ],
+      "max_row": 1000
+     }
+    ],
+    "log_batch_time": 2000,
+    "max_upload_bytes": 1073741824,
+    "compression": 1
+   }
+  }
+ ]
+}

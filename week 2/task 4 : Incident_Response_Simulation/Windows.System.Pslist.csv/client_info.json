@@ -1,0 +1,20 @@
+{
+ "client_id": "C.a6d3269911f8f9c8",
+ "hostname": "Alex_comp",
+ "fqdn": "Alex_comp",
+ "system": "windows",
+ "release": "Microsoft Windows 11 Home25H2",
+ "architecture": "amd64",
+ "ip_address": "192.168.56.102:50115",
+ "ping": 1777151775146528,
+ "client_version": "0.76.3",
+ "client_name": "velociraptor",
+ "first_seen_at": 1777150217,
+ "build_time": "2026-04-15T15:25:57Z",
+ "mac_addresses": [
+  "08:00:27:29:b0:4f"
+ ],
+ "last_interrogate_flow_id": "F.D7MILDIEJ4AIC",
+ "last_interrogate_artifact_name": "Generic.Client.Info/BasicInformation",
+ "last_event_table_version": 1777150217697088136
+}
