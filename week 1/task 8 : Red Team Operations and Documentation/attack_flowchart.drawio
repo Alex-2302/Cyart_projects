@@ -1,0 +1,50 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Page-1" id="T7riIatxeVs0Lw6v28d2">
+    <mxGraphModel dx="1828" dy="1032" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="491JiOg2GkiIS6F9oBt3-8" edge="1" parent="1" source="491JiOg2GkiIS6F9oBt3-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-74.5" y="-31" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="491JiOg2GkiIS6F9oBt3-1" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Recon (Nmap)" vertex="1">
+          <mxGeometry height="32" width="195" x="-172" y="-153" as="geometry" />
+        </mxCell>
+        <mxCell id="491JiOg2GkiIS6F9oBt3-9" edge="1" parent="1" source="491JiOg2GkiIS6F9oBt3-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-77" y="74" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="491JiOg2GkiIS6F9oBt3-2" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Vulnerability Scan (OpenVAS)" vertex="1">
+          <mxGeometry height="49" width="190" x="-172" y="-30" as="geometry" />
+        </mxCell>
+        <mxCell id="491JiOg2GkiIS6F9oBt3-12" edge="1" parent="1" source="491JiOg2GkiIS6F9oBt3-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="491JiOg2GkiIS6F9oBt3-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="491JiOg2GkiIS6F9oBt3-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span&gt;Exploitation (Metasploit)&lt;/span&gt;" vertex="1">
+          <mxGeometry height="37" width="195" x="-172" y="75" as="geometry" />
+        </mxCell>
+        <mxCell id="491JiOg2GkiIS6F9oBt3-13" edge="1" parent="1" source="491JiOg2GkiIS6F9oBt3-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="491JiOg2GkiIS6F9oBt3-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="491JiOg2GkiIS6F9oBt3-4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span&gt;Meterpreter Access&lt;/span&gt;" vertex="1">
+          <mxGeometry height="38" width="191" x="-170.5" y="196" as="geometry" />
+        </mxCell>
+        <mxCell id="491JiOg2GkiIS6F9oBt3-14" edge="1" parent="1" source="491JiOg2GkiIS6F9oBt3-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="491JiOg2GkiIS6F9oBt3-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="491JiOg2GkiIS6F9oBt3-5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span&gt;Post-Exploitation&lt;/span&gt;" vertex="1">
+          <mxGeometry height="36" width="194" x="-172" y="318" as="geometry" />
+        </mxCell>
+        <mxCell id="491JiOg2GkiIS6F9oBt3-6" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;span&gt;Password Attack (Hydra)&lt;/span&gt;" vertex="1">
+          <mxGeometry height="26" width="203" x="-176.5" y="440" as="geometry" />
+        </mxCell>
+        <mxCell id="491JiOg2GkiIS6F9oBt3-7" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Reporting" vertex="1">
+          <mxGeometry height="60" width="120" x="-172" y="593" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
